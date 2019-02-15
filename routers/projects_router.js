@@ -14,8 +14,8 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    if(!req.body.text) {
-        res.status(400).json({error: "Please provide text for the project."});
+    if(!req.body.name || !req.body.description) {
+        res.status(400).json({error: "Please provide a name and description for the project."});
         return;
     }
 

@@ -28,13 +28,27 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    if(!req.body.name) {
-        res.status(400).json({error: "Please provide a name for the action."});
+    if(!req.body.project_id) {
+        res.status(400).json({error: "Please provide a project ID for the action."});
+        return;
+    }
+    if(!req.body.description) {
+        res.status(400).json({error: "Please provide a description for the action."});
+        return;
+    }
+    if(req.body.description.length > 128) {
+        res.status(400).json({error: "Description must be less that 128 chars"});
+        return;
+    }
+    if(!req.body.notes) {
+        res.status(400).json({error: "Please provide notes for the action."});
         return;
     }
     try {
         const newaction = {
-            name: req.body.name
+            project_id: req.body.project_id,
+            description: req.body.description,
+            notes: req.body.notes
         };
         let insaction = await db.insert(newaction);
         let theaction = await db.getById(insaction.id);
