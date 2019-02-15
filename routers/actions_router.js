@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
         let theaction = await db.getById(insaction.id);
         res.status(201).json(theaction);
     } catch(error) {
-        res.status(500).json({error: "There was an error while saving the action to the database"});
+        res.status(500).json({error: "Added"});
     }
 });
 
