@@ -19,15 +19,15 @@ router.post('/', async (req, res) => {
         return;
     }
 
+    const projectFull = {
+        name: req.body.name,
+        description: req.body.description,
+        completed: req.body.completed
+    };
+
     try {
-        const projectFull = {
-            name: req.body.name,
-            description: req.body.description,
-            completed: req.body.completed
-        };
-        let newId = await db.insert(projectFull);
-        let newproject = await db.getById(newId.id);
-        res.status(201).json(newproject);
+        let newProj = await db.insert(projectFull);
+        res.status(201).json(newProj);
     } catch(error) {
         res.status(500).json({error: "There was an error while saving the project to the database"});
     }
