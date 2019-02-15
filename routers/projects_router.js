@@ -21,8 +21,9 @@ router.post('/', async (req, res) => {
 
     try {
         const projectFull = {
-            text: req.body.text,
-            user_id: req.body.user_id
+            name: req.body.name,
+            description: req.body.description,
+            completed: req.body.completed
         };
         let newId = await db.insert(projectFull);
         let newproject = await db.getById(newId.id);
@@ -63,8 +64,8 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    if(!req.body.text) {
-        res.status(400).json({error: "Please provide text for the project."});
+    if(!req.body.name) {
+        res.status(400).json({error: "Please provide a name for the project."});
         return;
     }
     
